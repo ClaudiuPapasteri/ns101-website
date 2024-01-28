@@ -2,9 +2,7 @@
 
 🔗 https://ns101.psychlab.eu/
 
-<!--
-[![Netlify Status](https://api.netlify.com/api/v1/badges/bcc90e4c-435c-4fb7-8391-8131d2834784/deploy-status)](https://app.netlify.com/sites/cpapasteri/deploys)
--->
+[![Netlify Status](https://api.netlify.com/api/v1/badges/47b0eb23-9db9-4577-a941-cada784be790/deploy-status)](https://app.netlify.com/sites/ns101/deploys)
 
 This site was made with the R [`blogdown`](https://github.com/rstudio/blogdown) package and the [Relearn](https://github.com/McShelby/hugo-theme-relearn) theme for [Hugo](https://gohugo.io).
 
