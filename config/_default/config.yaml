@@ -1,0 +1,159 @@
+baseURL: "https://claudiu.psychlab.eu/"
+canonifyURLs: yes
+relativeURLs: yes
+uglyURLs: no
+theme: hugo-theme-relearn
+languageCode: en
+defaultContentLanguage: ro
+title: NS101 Course Website
+outputs:
+  home:
+    - HTML
+    - RSS
+    - PRINT
+    - SEARCH
+    - SEARCHPAGE
+  page:
+    - HTML
+    - RSS
+    - PRINT
+  section:
+    - HTML
+    - RSS
+    - PRINT
+markup:
+  goldmark:
+    renderer:
+      unsafe: yes
+  highlight:
+    guessSyntax: no
+    lineNumbersInTable: no
+    noClasses: no
+server:
+  headers:
+    - for: '**.html'
+      values:
+        X-UA-Compatible: IE=edge
+disableLanguages: pir        
+languages:
+  ro:
+    languageName: Română
+    menu:
+      shortcuts:
+        - name: <i class='fas fa-fw fa-bullhorn'></i> Anunțuri
+          pageRef: more/anounce/
+          weight: 10
+        - name: <i class='fas fa-fw fa-camera'></i> Notițe
+          pageRef: notes/
+          weight: 20
+        - identifier: ds
+          name: <i class='fab fa-fw fa-github'></i> Repozitor GitHub
+          url: https://github.com/ClaudiuPapasteri/ns101-website/
+          weight: 30
+    params:
+      landingPageName: <i class='fas fa-home'></i> Home
+    title: Ceva in Ro
+    weight: 1
+  en:
+    languageName: English
+    menu:
+      shortcuts:
+        - name: <i class='fas fa-fw fa-bullhorn'></i> Anouncements
+          pageRef: more/anounce/
+          weight: 10
+        - name: <i class='fas fa-fw fa-camera'></i> Notebooks
+          pageRef: notes/
+          weight: 20  
+        - identifier: ds
+          name: <i class='fab fa-fw fa-github'></i> GitHub repo
+          url: https://github.com/ClaudiuPapasteri/ns101-website/
+          weight: 30
+    params:
+      landingPageName: <i class='fas fa-home'></i> Home
+    title: Hugo Relearn Theme
+    weight: 2
+
+    
+      # -- disable pir ---
+  # pir:
+  #   languageName: Arrr! ☠ Pirrrates ☠
+  #   menu:
+  #     shortcuts:
+  #       - identifier: ds
+  #         name: <i class='fab fa-fw fa-github'></i> GitHub repo
+  #         url: https://github.com/McShelby/hugo-theme-relearn
+  #         weight: 10
+  #   params:
+  #     landingPageName: <i class='fas fa-home'></i> Home
+  #   title: Hugo Relearn Theme
+  #   weight: 3
+  #     # -- disabled pir --- 
+
+module:
+  mounts:
+    - source: archetypes
+      target: archetypes
+    - source: assets
+      target: assets
+    - source: content
+      target: content
+    - source: data
+      target: data
+    - source: i18n
+      target: i18n
+    - source: ../images
+      target: static/images
+    - source: static/images
+      target: static/images
+    - source: layouts
+      target: layouts
+    - source: static
+      target: static
+params:
+  # additionalContentLanguage: 
+  #   - en
+  #   - ro
+  author:
+    name: Claudiu C. Papasteri
+  breadcrumbSeparator: '>'
+  collapsibleMenu: yes
+  description: Neuroscience 101 Course website
+  disableBreadcrumb: no
+  disableInlineCopyToClipBoard: yes
+  disableLandingPageButton: yes
+  disableNextPrev: no
+  disableRootBreadcrumb: yes
+  disableSeoHiddenPages: yes
+  editURL: https://github.com/ClaudiuPapasteri/ns101-website/
+  imageEffects:
+    bg-white: yes
+    border: yes
+  images: images/hero.png
+  mermaidInitialize: '{ "securityLevel": "loose" }'
+  mermaidZoom: yes
+  showVisitedLinks: yes
+  siteparam:
+    test:
+      text: A **nested** parameter <b>with</b> formatting
+  themeVariant:
+    # - auto
+    # - relearn-bright
+    # - relearn-light
+    # - relearn-dark
+    # - learn
+    - zen-light
+    - zen-dark
+    - neon
+    - blue
+    # - green
+    # - red
+  themeVariantAuto:
+    # - relearn-light
+    # - relearn-dark
+      - zen-light
+      - zen-dark
+  titleSeparator: '::'
+ignoreFiles:
+  - \.Rmd$
+  - \.Rmarkdown$
+  - _cache$

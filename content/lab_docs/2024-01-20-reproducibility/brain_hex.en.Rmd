@@ -1,0 +1,245 @@
+---
+title: "Reproducibility: recipes for science"
+author: "Claudiu C. Papasteri"
+date: "2024-01-18"
+output:
+  html_document:
+    keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Reproducibility
+
+Replicability in is vital for science, but we may get it every time.
+
+
+Reproducibility ensures that using the obtained data anyone can achieve the same results.This is not as easy as it seems because it necessitates (1) methodological procedures and analytic pipeline to be explicitly documented in their entirety (like a recipe), and (2) the use of a fully reproducible environment.     
+
+
+To give you an example, here we will reproduce the hexagonal logo (sometimes refereed to as [`hex-stickers`](https://github.com/rstudio/hex-stickers)) of our course. 
+Keep in mind that this example is only partial computational reproducibility, as we employ only package management. R version, system packages, operating system can vary and bias our results. 
+
+
+Full computational reproducibility, achievable with Docker containers or NixOS derivations, is beyond the scope of this demo. 
+
+### Managing packages
+
+For simplicity, we just store package versions within the .Rmd file and use `renv` for package management and taking care of all other dependencies. 
+
+Take note that `renv` is more powerful then this and should typically be used in a project-centric (i.e. `.prj`) workflow. 
+
+```{r renv, results='hide', message=FALSE, warning=FALSE}
+if (!require("renv")) install.packages("renv", dependencies = TRUE)
+
+renv::use(
+  "renv@1.0.3",
+  "here@1.0.1",
+  "dplyr@1.1.4",
+  "tidyr@1.3.0",
+  "ggseg3d@1.6.3",
+  "ggseg@1.6.5",
+  "plotly@4.10.3",
+  "RColorBrewer@1.1-3",
+  "reticulate@1.34.0",
+  "magick@2.8.2",
+  "cropcircles@0.2.4",
+  "hexSticker@0.4.9"
+)
+```
+
+### Loading packages and setting up
+
+```{r packages, results='hide', message=FALSE, warning=FALSE}
+# Packages
+library(renv)
+library(here)
+library(dplyr)
+library(tidyr)
+library(ggseg)
+library(ggseg3d)
+library(plotly)
+library(RColorBrewer)
+library(reticulate)
+library(magick)
+library(cropcircles)
+library(hexSticker)
+```
+
+As we are doing everything within a single .Rmd file.
+Here we use an unusual way of setting up an working directory for the .Rmd file that can be reproduced on any other system. Nevertheless, the usual way would be to use `knitr` options to set a root directory.     
+
+```{r settings}
+# Settings 
+# If working in .prj directory and not using RStudio
+here::set_here()
+unloadNamespace("here")   # need new R session or unload namespace for .here file to take precedence over .Rproj
+script_path <- file.path(here::here())
+
+# If using RStudio
+# script_path <- dirname(rstudioapi::getActiveDocumentContext()$path) 
+
+# Create output folder if it doesn't exist
+setwd(script_path)
+folder_name <- "output"
+if(!exists(folder_name)) {dir.create(folder_name)} 
+setwd(file.path(script_path, folder_name))
+```
+
+### Making an interactive plot
+
+The package `aseg_3d` helps us build a `plotly` interactive plot using a brain atlas.  
+
+```{r brain_plotly, cache=TRUE, warning=FALSE}
+# Make the Brain plot -------------------------------------------------------------------------
+scene <- list(eye = list(x = -1.5, y = 0.3, z = 0))
+
+my_aseg <- aseg_3d %>% 
+  unnest(cols = ggseg_3d) %>% 
+  select(label, colour) %>% 
+  mutate(coln = as.integer(as.factor(colour))) %>% 
+  mutate(coln = if_else(grepl("Cerebellum|Ventricle|Vent", label), NA_integer_, coln)) %>% 
+  mutate(coln = if_else(grepl("CC_", label), 1L, coln)) %>% 
+  mutate(col = RColorBrewer::brewer.pal(11, "Paired")[12 - as.integer(as.factor(coln))]) %>% 
+  mutate(col = if_else(grepl("Cerebellum", label), "#012169", col))  # UB color
+
+brain_plotly <- 
+  ggseg3d(.data = my_aseg, atlas = aseg_3d, 
+    colour = "col", 
+    na.colour = "#A6CEE3",
+    show.legend = TRUE
+  ) %>% 
+  add_glassbrain(
+    hemisphere = "left",  
+    colour = "#A6CEE3", # "#cecece"
+    opacity = 0.3
+  ) %>% 
+  remove_axes() %>% 
+  pan_camera(camera = scene) %>% 
+  hide_colorbar()
+```
+
+You can interact with this visualization of a glass brain showing its subcortical structures. 
+
+```{r brain_plotly_print, cache=TRUE}
+brain_plotly
+```
+
+```{r brain_plotly_html}
+# Export to html
+# htmlwidgets::saveWidget(brain_plotly, "brain_plotly.html")
+```
+
+### Exporting the plot
+
+Exporting `plotly` graphics is a bit of a hassle, as we need to spawn a python environment in order to use the `kaleido` library.
+
+```{r brain_plotly_png, cache=TRUE, echo=FALSE}
+# Export to png 
+# Installing and managing conda env
+if(!require("reticulate")) {install.packages("reticulate")}
+try({
+  reticulate::install_miniconda()
+}, silent = FALSE)  
+if(!reticulate::condaenv_exists("r-reticulate-brainhex")) {
+  reticulate::conda_install("r-reticulate-brainhex", "python-kaleido==0.1.*") # "python-kaleido" newer versions hang on win11
+  reticulate::conda_install("r-reticulate-brainhex", "plotly", channel = "plotly")
+}
+reticulate::use_miniconda("r-reticulate-brainhex")
+
+# Actual export
+reticulate::py_run_string("import sys")
+save_image(brain_plotly, file = here::here("output", "brain_img.png"), height = 700, width = 800)
+```
+
+Now we have a .png of our glass brain!
+
+```{r brain_plotly_png_print, out.width='50%', fig.align='center', results='hide'}
+# file.show(here::here("output", "brain_img.png"))
+knitr::include_graphics(here::here("output", "brain_img.png"))
+```
+
+```{r, out.width='50%', fig.align='center', echo=FALSE}
+brain_img <- magick::image_read(here::here("output", "brain_img.png"))
+brain_img
+```
+
+Let's crop around it so we can then fit it inside a hexagonal shape. 
+
+```{r brain_plotly_png_cropped}
+# Make the hex sticker -------------------------------------------------------------------------
+brain_img <- magick::image_read(here::here("output", "brain_img.png"))
+
+cropcircles::circle_crop(
+  images = brain_img,
+  border_colour = "#ffffff",
+  border_size = 10,
+  to = here::here("output", "brain_img_cropped.png")
+)
+
+brain_img_cropped <- magick::image_read(here::here("output", "brain_img_cropped.png"))
+# brain_img_cropped
+```
+
+```{r brain_plotly_png_cropped_print, out.width='50%', fig.align='center', results='hide'}
+knitr::include_graphics(here::here("output", "brain_img_cropped.png"))
+```
+
+```{r, out.width='50%', fig.align='center', echo=FALSE}
+brain_img_cropped
+```
+
+Now we `hexSticker` package to make out image into a hex sticker!
+
+```{r brain_plotly_png_hex}
+hexSticker::sticker(
+  brain_img_cropped, 
+  package = "UniBuc NS101", p_color="#012169", p_family = "sans",     # don't use: p_fontface = "bold"
+  p_size = 14, p_y = 1.5,  
+  s_x = 1, s_y = 0.9, s_width = 2, s_height = 1.5,
+  h_fill="#ffffff", h_color="#012169", 
+  url = "ns101.psychlab.eu", u_color = "#012169", u_size	= 8,
+  filename = here::here("output", "brain_hex_bg.png")
+)
+
+brain_hex_bg <- magick::image_read(here::here("output", "brain_hex_bg.png"))
+```
+
+```{r brain_plotly_png_hex_bg_print, out.width='50%', fig.align='center', results='hide'}
+knitr::include_graphics(here::here("output", "brain_hex_bg.png"))
+```
+
+```{r, out.width='50%', fig.align='center', echo=FALSE}
+brain_hex_bg
+```
+
+A little bit more styling and we are done - we really want the background to be transparent, not white. 
+
+```{r brain_plotly_png_hex_bg}
+fuzz <- 50
+
+brain_hex <- brain_hex_bg %>%             # make background transparent
+  magick::image_fill(color = "transparent", refcolor = "white", fuzz = fuzz, point = "+1+1") %>%
+  magick::image_fill(color = "transparent", refcolor = "white", fuzz = fuzz, 
+             point = paste0("+", image_info(brain_hex_bg)$width-1, "+1")) %>%
+  magick::image_fill(color = "transparent", refcolor = "white", fuzz = fuzz, 
+             point = paste0("+1", "+", image_info(brain_hex_bg)$height-1)) %>%
+  magick::image_fill(color = "transparent", refcolor = "white", fuzz = fuzz, 
+             point = paste0("+", image_info(brain_hex_bg)$width-1, "+", image_info(brain_hex_bg)$height-1))
+magick::image_write(image = brain_hex, path = here::here("output", "brain_hex.png"))
+```
+
+```{r brain_plotly_png_hex_fin_print, out.width='50%', fig.align='center', results='hide'}
+# file.show(here::here("output", "brain_hex.png"))
+knitr::include_graphics(here::here("output", "brain_hex.png"))
+```
+
+```{r, out.width='50%', fig.align='center', echo=FALSE}
+brain_hex_fin <- magick::image_read(here::here("output", "brain_hex.png"))
+brain_hex_fin
+```
+
+If we documented everything well enough and if you have a similar system, there should be a very high probability that by running this .Rmd file, you will re-construct our brain hex logo.
+

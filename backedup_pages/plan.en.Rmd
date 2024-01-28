@@ -1,0 +1,53 @@
+---
+title: "Introduction to Neuroscience"
+weight: 1
+output:
+  html_document:
+    keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r func_dates, include = FALSE}
+library(lubridate)
+library(stringr)
+
+
+mon <- as_date("2023-10-02")
+tues <- mon+days(1)
+wed <- mon+days(2)
+thur <- mon+days(3)
+fri <- mon+days(4)
+
+advdate <- function(day, week) {
+  date <- (day + weeks(week))
+  dm <- paste(month(date, label = TRUE)," ", day(date)) 
+  return(dm)  
+}
+```
+
+| Săptămâna | Data                | Subiect                                                                                                                              | Lectură                                                                                   | Video                                                                          | Prezentări                | Activități                |
+|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+| 1         | `r advdate(mon,0)`  | Neuroscience and Cognitive Sciences: Levels of Analysis and Research Paradigms; Neurons and Glial Cells                              | [📖](https://google.com/) (Bermúdez, 2020 -- Intoduction; Bear et al., 2016 -- Ch1 & Ch2) | [📺](https://youtu.be/YOxmuNS6iV4 "Cognitive Science - Neuroscience Emphasis") | [🖥️](https://google.com/) | [📋](https://google.com/) |
+| 2         | `r advdate(mon,1)`  | Electrical Properties of the Neuron: Membrane Potential                                                                              | [📖](https://google.com/) (Bear et al., 2016 -- Ch3)                                      |                                                                                |                           |                           |
+| 3         | `r advdate(mon,2)`  | Electrical Properties of the Neuron: Action Potential                                                                                | [📖](https://google.com/) (Bear et al., 2016 -- Ch4)                                      |                                                                                |                           |                           |
+| 4         | `r advdate(mon,3)`  | Electrical Properties of the Neuron: Synaptic Transmission                                                                           | [📖](https://google.com/) (Bear et al., 2016 -- Ch5)                                      |                                                                                |                           |                           |
+| 5         | `r advdate(mon,4)`  | The electrical properties of the brain, the Electroencephalogram and Peripheral Electrophysiology                                    | [📖](https://google.com/) (Ward, 2016 -- Ch3)                                             |                                                                                |                           |                           |
+| 6         | `r advdate(mon,5)`  | Neurotransmitter Systems                                                                                                             | [📖](https://google.com/) (Bear et al., 2016 -- Ch6)                                      |                                                                                |                           | ✍️                        |
+| 7         | `r advdate(mon,6)`  | Structure of the Nervous System: Neuroanatomy                                                                                        | [📖](https://google.com/) (Bear et al., 2016 -- Ch7)                                      |                                                                                |                           |                           |
+| 8         | `r advdate(mon,7)`  | Sensory and Motor Systems                                                                                                            | [📖](https://google.com/) (Bear et al., 2016 -- Ch8-Ch14)                                 |                                                                                |                           |                           |
+| 9         | `r advdate(mon,8)`  | The Resting Brain, Attention, and Consciousness                                                                                      | [📖](https://google.com/) (Bear et al., 2016 -- Ch21)                                     |                                                                                |                           |                           |
+| 10        | `r advdate(mon,9)`  | Brain Waves and Sleep                                                                                                                | [📖](https://google.com/) (Bear et al., 2016 -- Ch19)                                     |                                                                                |                           |                           |
+| 11        | `r advdate(mon,10)` | Brain Mechanisms of Emotion                                                                                                          | [📖](https://google.com/) (Bear et al., 2016 -- Ch18)                                     |                                                                                |                           |                           |
+| 12        | `r advdate(mon,11)` | Mental Disorders                                                                                                                     | [📖](https://google.com/) (Bear et al., 2016 -- Ch22)                                     |                                                                                |                           |                           |
+| 13        | `r advdate(mon,13)` | Research Domain Criteria (RDoC)                                                                                                      | [📖](https://google.com/)                                                                 |                                                                                |                           |                           |
+| 14        | Suplimentar         | Computational Neuroscience, Connectionism, and Artificial Intelligence: Synapse Modeling, Perceptron, and Artificial Neural Networks | [📖](https://google.com/) (Bermúdez, 2020 -- Part II 5)                                   |                                                                                |                           |                           |
+| Examen    | Stabilit            |                                                                                                                                      |                                                                                           |                                                                                |                           | ✍️                        |
+
+Bear, M., Connors, B., & Paradiso, M. A. (2016). *Neuroscience: exploring the brain* (4th Ed.). Jones & Bartlett Learning.
+
+Bermúdez, J. L. (2020). *Cognitive science: An introduction to the science of the mind*. Cambridge University Press.
+
+Ward, J. (2019). *The Student's Guide to Cognitive Neuroscience*. Routledge.

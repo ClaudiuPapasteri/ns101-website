@@ -1,0 +1,57 @@
+---
+title: "Introducere în Neuroștiințe"
+weight: 1
+output:
+  html_document:
+    keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r func_dates, include = FALSE}
+library(lubridate)
+library(stringr)
+
+
+mon <- as_date("2023-10-02")
+tues <- mon+days(1)
+wed <- mon+days(2)
+thur <- mon+days(3)
+fri <- mon+days(4)
+
+advdate <- function(day, week) {
+  date <- (day + weeks(week))
+  dm <- paste0(
+          str_pad(day(date), 2, pad = "0"), 
+          ".", 
+          str_pad(month(date), 2, pad = "0")
+        ) # no month names wiht: label = TRUE
+  return(dm)  
+} 
+```
+
+| Săptămâna | Data                | Subiect                                                                                                                                   | Lectură                                                                                   | Video                                                                          | Prezentări                | Activități                |
+|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+| 1         | `r advdate(wed,0)`  | Neuroștiințele și științele cognitive: niveluri de analiză și paradigme de cercetare; Neuronii și celulele gliale                         | [📖](https://google.com/) (Bermúdez, 2020 -- Intoduction; Bear et al., 2016 -- Ch1 & Ch2) | [📺](https://youtu.be/YOxmuNS6iV4 "Cognitive Science - Neuroscience Emphasis") | [🖥️](https://google.com/) | [📋](https://google.com/) |
+| 2         | `r advdate(wed,1)`  | Proprietățile electrice ale neuronului: Potențialul de membrană                                                                           | [📖](https://google.com/) (Bear et al., 2016 -- Ch3)                                      |                                                                                |                           |                           |
+| 3         | `r advdate(wed,2)`  | Proprietățile electrice ale neuronului: Potenţialul de acţiune                                                                            | [📖](https://google.com/) (Bear et al., 2016 -- Ch4)                                      |                                                                                |                           |                           |
+| 4         | `r advdate(wed,3)`  | Proprietățile electrice ale neuronului: Transmisia sinaptică                                                                              | [📖](https://google.com/) (Bear et al., 2016 -- Ch5)                                      |                                                                                |                           |                           |
+| 5         | `r advdate(wed,4)`  | Proprietățile electrice ale creierului, electroencefalograma și electrofiziologia periferică                                              | [📖](https://google.com/) (Ward, 2016 -- Ch3)                                             |                                                                                |                           |                           |
+| 6         | `r advdate(wed,5)`  | Sistemele de neurotransmițători                                                                                                           | [📖](https://google.com/) (Bear et al., 2016 -- Ch6)                                      |                                                                                |                           | ✍️                        |
+| 7         | `r advdate(wed,6)`  | Structura sistemului nervos: neuroanatomie                                                                                                | [📖](https://google.com/) (Bear et al., 2016 -- Ch7)                                      |                                                                                |                           |                           |
+| 8         | `r advdate(wed,7)`  | Sistemele senzorial și motor                                                                                                              | [📖](https://google.com/) (Bear et al., 2016 -- Ch8-Ch14)                                 |                                                                                |                           |                           |
+| 9         | `r advdate(wed,8)`  | Creierul în repaus, atenția și conștiința                                                                                                 | [📖](https://google.com/) (Bear et al., 2016 -- Ch21)                                     |                                                                                |                           |                           |
+| 10        | `r advdate(wed,9)`  | Undele celebrale și solumnul                                                                                                              | [📖](https://google.com/) (Bear et al., 2016 -- Ch19)                                     |                                                                                |                           |                           |
+| 11        | `r advdate(wed,10)` | Mecanismele cerebrale ale emoției                                                                                                         | [📖](https://google.com/) (Bear et al., 2016 -- Ch18)                                     |                                                                                |                           |                           |
+| 12        | `r advdate(wed,11)` | Tulburările mentale                                                                                                                       | [📖](https://google.com/) (Bear et al., 2016 -- Ch22)                                     |                                                                                |                           |                           |
+| 13        | `r advdate(wed,12)` | Criteriile domeniului de cercetare (Research Domain Criteria - RDoC)                                                                      | [📖](https://google.com/)                                                                 |                                                                                |                           |                           |
+| 14        | Suplimentar         | Neuroștiințe computaționale, conexionismul și inteligența artificială: modelarea sinapselor, perceptronul și rețelele neurale artificiale | [📖](https://google.com/) (Bermúdez, 2020 -- Part II 5)                                   |                                                                                |                           |                           |
+| Examen    | Stabilit            |                                                                                                                                           |                                                                                           |                                                                                |                           | ✍️                        |
+
+Bear, M., Connors, B., & Paradiso, M. A. (2016). *Neuroscience: exploring the brain* (4th Ed.). Jones & Bartlett Learning.
+
+Bermúdez, J. L. (2020). *Cognitive science: An introduction to the science of the mind*. Cambridge University Press.
+
+Ward, J. (2019). *The Student's Guide to Cognitive Neuroscience*. Routledge.

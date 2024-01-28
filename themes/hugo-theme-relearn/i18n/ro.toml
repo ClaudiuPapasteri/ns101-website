@@ -1,0 +1,119 @@
+[Reading-direction]
+other = "ltr"
+
+[Search]
+other = "Caută"
+
+[Search-placeholder]
+other = "Caută..."
+
+[Clear-search]
+other = "Șterge căutarea"
+
+[No-results-found]
+other = "Nu au fost găsite rezultate pentru \"{0}\""
+
+[N-results-found]
+other = "{1} rezultate găsite pentru \"{0}\""
+
+[Clear-History]
+other = "Șterge Istoric"
+
+[Reset-view]
+other = "Resetează afișajul"
+
+[View-reset]
+other = "Afișaj resetat!"
+
+[Attachments-label]
+other = "Atașamente"
+
+[title-404]
+other = "Nu a fost găsit"
+
+[message-404]
+other = "Oops. Se pare că pagina nu există ¯\\_(ツ)_/¯."
+
+[Go-to-homepage]
+other = "Către Pagina de pornire"
+
+[Edit-this-page]
+other = "Editare"
+
+[Print-this-chapter]
+other = "Printează întreg capitolul"
+
+[More-action]
+other = "Resurse"
+
+[Shortcuts-Title]
+other = "Resurse"
+
+[Expand-title]
+other = "Extinde..."
+
+[Navigation-toggle]
+other = "Meniu"
+
+[Toc-toggle]
+other = "Cuprins"
+
+[Byte-symbol]
+other = "B"
+
+[Kilobyte-symbol]
+other = "KB"
+
+[Megabyte-symbol]
+other = "MB"
+
+[note]
+other = "Notă"
+
+[info]
+other = "Info"
+
+[tip]
+other = "Tip"
+
+[warning]
+other = "Atenție"
+
+[Copy-to-clipboard]
+other = "Copiază în clipboard"
+
+[Copied-to-clipboard]
+other = "Copiat în clipboard!"
+
+[Copy-link-to-clipboard]
+other = "Copiază link în clipboard"
+
+[Link-copied-to-clipboard]
+other = "Link copiat în clipboard!"
+
+[Chapter]
+other = "Capitol {{.}}"
+
+[Language]
+other = "Limbă"
+
+[Theme]
+other = "Theme"
+
+[Submenu]
+other = "Submeniu {{.}}"
+
+[Subsections]
+other = "Subsecțiune a {{.}}"
+
+[tags]
+other = "Taguri"
+
+[tag]
+other = "Tag"
+
+[categories]
+other = "Categorii"
+
+[category]
+other = "Categorie"
