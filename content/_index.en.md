@@ -1,26 +1,51 @@
 ---
 archetype: home
-title: Test in Eng
+title: Welcome
 ---
 
-A theme for [Hugo](https://gohugo.io/) designed for documentation.
-
-[★ What's new in the latest release ★](basics/migration)
-
-![Image of the Relearn theme in light and dark mode on phone, tablet and desktop](images/hero.png?width=100%&height=100%)
-
-## Motivation
-
-The theme is a fork of the great [Learn theme](https://github.com/matcornic/hugo-theme-learn) with the aim of fixing long outstanding bugs and adapting to latest Hugo features. As far as possible this theme tries to be a drop-in replacement for the Learn theme.
-
-## Features
-
-- **Wide set of usage scenarios**
-  - Responsive design for mobile usage
+###### This is the companion webside to the <span class="semibold-italic">Introduction to Neuroscience</span> and <span class="semibold-italic">Cognitive and Clinical Neuroscience</span> courses at the Faculty of Psychology and Educational Sciences, University of Bucharest.
 
 
-## License
+<style> 
 
-The Relearn theme is licensed under the [MIT License](https://github.com/McShelby/hugo-theme-relearn/blob/main/LICENSE).
+  .semibold-italic {
+    font-weight: 500 !important;
+    font-style: italic;
+  }
 
+  .imgcontainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+    position: relative;
+  }
+  
+  .boxy {
+    border: 1px;
+  }
+  
+  .boxy img {
+    width: 50%;
+    height: 50%;
+    height: auto;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+</style>
+
+<br></br>
+<div class="imgcontainer">
+  <div class="boxy">
+    <a href="https://unibuc.ro">
+      <img src="/images/unibuc_small.png" alt="https://unibuc.ro">
+    </a>  
+  </div>
+  <div class="boxy">
+    <a href="https://fpse.ro">
+      <img src="/images/fpse_small.png" alt="https://fpse.unibuc.ro/">
+    </a>  
+  </div>
+</div>
 
