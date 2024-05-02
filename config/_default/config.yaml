@@ -43,8 +43,8 @@ languages:
         - name: <i class='fas fa-fw fa-bullhorn'></i> Anunțuri
           pageRef: more/anounce/
           weight: 10
-        - name: <i class='fas fa-fw fa-camera'></i> Notițe
-          pageRef: notes/
+        - name: <i class='fas fa-fw fa-camera'></i> Prezentări
+          pageRef: prez/
           weight: 20
         - identifier: ds
           name: <i class='fab fa-fw fa-github'></i> Repozitor GitHub
@@ -61,8 +61,8 @@ languages:
         - name: <i class='fas fa-fw fa-bullhorn'></i> Anouncements
           pageRef: more/anounce/
           weight: 10
-        - name: <i class='fas fa-fw fa-camera'></i> Notebooks
-          pageRef: notes/
+        - name: <i class='fas fa-fw fa-camera'></i> Presentations
+          pageRef: prez/
           weight: 20  
         - identifier: ds
           name: <i class='fab fa-fw fa-github'></i> GitHub repo
